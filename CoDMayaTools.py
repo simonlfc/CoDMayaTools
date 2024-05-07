@@ -53,6 +53,7 @@ import shutil
 import zipfile
 import re
 import json
+import importlib
 from PyCoD import xmodel as xModel
 from PyCoD import xanim as xAnim
 from array import array
@@ -204,7 +205,7 @@ def CreateMenu():
     cmds.setParent(menu, menu=True)
     cmds.menuItem(divider=True)
     # For easy script updating
-    cmds.menuItem(label="Reload Script", command="reload(CoDMayaTools)")
+    cmds.menuItem(label="Reload Script", command="importlib.reload(CoDMayaTools)")
 
     # Tools Info
     cmds.menuItem(label="About", command=lambda x:AboutWindow())
@@ -3215,7 +3216,7 @@ def getObjectByAlias(aname):
 # Bind the weapon to hands
 def WeaponBinder():
     # Call of Duty specific
-    for x in xrange(0, len(GUN_BASE_TAGS)):
+    for x in list(range(0, len(GUN_BASE_TAGS))):
         try:
             # Select both tags and parent them
             cmds.select(GUN_BASE_TAGS[x], replace = True)
