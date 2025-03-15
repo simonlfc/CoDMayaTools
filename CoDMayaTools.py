@@ -290,7 +290,7 @@ def ReadNullTerminatedString(f):
     byte = f.read(1)
     string = ""
     while struct.unpack('B', byte)[0] != 0:
-        string += byte
+        string += byte.decode('utf-8')
         byte = f.read(1)
 
     return string
@@ -752,7 +752,7 @@ def LoadMaterials(lod, codRootPath):
 
                 # Extract from zip
                 source = zip.open("images/%s%s" % (mapName, ".iwi"))
-                target = file(outPath, "wb")
+                target = open(outPath, "wb")
                 shutil.copyfileobj(source, target)
                 source.close()
                 target.close()
